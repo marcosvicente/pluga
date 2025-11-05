@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import api from "@/lib/api";
+import api from "../lib/api";
 import SnippetForm from "./components/SnippetForm";
 import SnippetList from "./components/SnippetList";
 
@@ -20,10 +20,10 @@ export default function Home() {
 
   const fetchSnippets = useCallback(async (): Promise<void> => {
     try {
-      const { data } = await api.get<Snippet[]>("/snippets");
-      setSnippets(data);
+        const { data } = await api.get<Snippet[]>("/snippets");
+        setSnippets(data);
     } catch (error) {
-      console.error("[Snippets] Falha ao carregar:", error);
+        console.error("[Snippets] Falha ao carregar:", error);
     }
   }, []);
 

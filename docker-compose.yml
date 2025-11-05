@@ -34,7 +34,7 @@ services:
     volumes:
       - ./frontend:/app
     ports:
-      - "3001:3001"
+      - "4000:4000"
     environment:
       NEXT_PUBLIC_RAILS_API_URL: http://localhost:3000 # Or the internal Rails service name if accessed from within Docker network
 

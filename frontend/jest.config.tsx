@@ -9,9 +9,9 @@ module.exports = {
   // Optional: If you have specific test file patterns
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(ts|tsx)$',
   // Optional: If you use module aliases in your project
-  moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1',
-  },
+  // moduleNameMapper: {
+  //   '^@/(.*)$': '<rootDir>/src/$1',
+  // },
   // Optional: Setup files for things like @testing-library/jest-dom
   // setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
 };

@@ -6,7 +6,6 @@ type Snippet = {
   summary: string;
 };
 
-
 const EMPTY_MESSAGE = "Nenhum snippet encontrado";
 
 export default function SnippetList({snippets, onToggleSnippet}: SnippetListProps) {
