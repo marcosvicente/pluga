@@ -62,6 +62,13 @@ docker compose exec rails bin/rails console
 docker compose exec rails bin/rails s
 ```
 
+### ⚙️ OpenAI
+To use OpenAI, you need to generate an API key from the OpenAI website) [ OpenAI website](https://platform.openai.com/account/api-keys).
+Once you have your key, set it as an environment variable named:
+```bash
+OPENAI_ACCESS_TOKEN=your_api_key_here
+```
+Make sure this variable is defined in your .env.local file or your deployment environment before running the application. Use the .env to help you.
 
 ### Docs to help
 https://blog.saeloun.com/2023/05/22/integrate-openai-api-in-ruby-application/
