@@ -1,27 +1,28 @@
 class SnippetsController < ApplicationController
-  before_action :set_proponent, only: %i[ show ]
+  before_action :set_snippet, only: %i[ show ]
 
   def index
-    @snippts = Snippet.all
+    @snippets = Snippet.all
   end
 
   def show
   end
 
   def create
-    params = GeneratSnippet::SumaryAIService.call(snippet_params[:text])
-    @snippt = Snippet.new(params)
+    ai_result = GenerateSnippet::SummaryAiService.call(snippet_params[:text])
 
-    if @snippt.save
-      render json: @snippt, status: :unprocessable_entity
+    @snippet = Snippet.new(ai_result.to_h)
 
+    if @snippet.save
+      render json: @snippet, status: :created
     else
-      ender json: @snippt.errors, status: :unprocessable_entity
+      render json: { errors: @snippet.errors }, status: :unprocessable_entity
     end
   end
 
   private
-  def set_proponent
+
+  def set_snippet
     @snippet = Snippet.find(params[:id])
   end
 

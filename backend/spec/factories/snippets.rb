@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :snippet do
-    text { "MyText" }
-    summary { "MyString" }
+    text { Faker::Lorem.paragraph }
+    summary { Faker::Lorem.paragraph }
   end
 end
