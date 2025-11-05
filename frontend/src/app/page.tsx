@@ -16,14 +16,17 @@ const CONTAINER_CLASSES = "container mx-auto p-4";
 const TITLE_CLASSES = "text-3xl font-bold text-center mb-6";
 
 export default function Home() {
-  const [snippets, setSnippets] = useState<Snippet[]>([]);
+    const [snippets, setSnippets] = useState<Snippet[]>([]);
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const fetchSnippets = useCallback(async (): Promise<void> => {
+
+    const fetchSnippets = useCallback(async (): Promise<void> => {
     try {
         const { data } = await api.get<Snippet[]>("/snippets");
         setSnippets(data);
     } catch (error) {
-        console.error("[Snippets] Falha ao carregar:", error);
+        const message = error instanceof Error ? error.message : "Erro ao carregar snippets";
+        setErrorMessage(message);
     }
   }, []);
 
@@ -35,7 +38,9 @@ export default function Home() {
           await api.post("/snippets", { text: newText });
           await fetchSnippets();
         } catch (error) {
-          console.error("[Snippets] Falha ao adicionar:", error);
+            const message = error instanceof Error ? error.message : "Erro ao criar snippet";
+            setErrorMessage(message);
+
         }
       },
       [fetchSnippets]
@@ -48,8 +53,19 @@ export default function Home() {
   return (
       <div className={CONTAINER_CLASSES}>
         <h1 className={TITLE_CLASSES}>{TITLE}</h1>
-        <SnippetForm onAddSnippet={submitSnippet} />
-        <SnippetList snippets={snippets} />
+          {errorMessage ? (
+              <>
+                  <div role="alert">Ocorreu um erro</div>
+                  <div role="alert">{errorMessage}</div>
+              </>
+
+              ) : (
+              <>
+                  <SnippetList snippets={snippets} />
+                  <SnippetForm onAddSnippet={submitSnippet} />
+              </>
+          )}
+
       </div>
   );
 }
