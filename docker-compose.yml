@@ -31,11 +31,17 @@ services:
     build:
       context: ./frontend # Assuming Next.js app is in a 'frontend' directory
       dockerfile: Dockerfile.next
+      target: dev
+    platform: linux/arm64
     volumes:
       - ./frontend:/app
+      - /app/node_modules
+
     ports:
       - "4000:4000"
     environment:
+      NEXT_DISABLE_TURBOPACK: "1"
+      WATCHPACK_POLLING: "true"
       NEXT_PUBLIC_RAILS_API_URL: http://localhost:3000 # Or the internal Rails service name if accessed from within Docker network
 
 volumes:

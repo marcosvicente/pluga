@@ -61,8 +61,8 @@ export default function Home() {
 
               ) : (
               <>
-                  <SnippetList snippets={snippets} />
                   <SnippetForm onAddSnippet={submitSnippet} />
+                  <SnippetList snippets={snippets} />
               </>
           )}
 
