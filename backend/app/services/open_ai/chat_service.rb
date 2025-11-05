@@ -26,12 +26,13 @@ module OpenAi
       response = client.chat(
         parameters: {
           model: DEFAULT_MODEL,
-          messages: [{ role: "user", content: message }],
+          messages: [{ role: "assistant", content: message }],
           temperature: 0.7
         }
       )
 
       response.dig("choices", 0, "message", "content")
     end
+
   end
 end

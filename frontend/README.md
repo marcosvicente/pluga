@@ -1,13 +1,40 @@
-# Snippet Manager - Next.js Frontend
+# 📦 Project Name
 
-A modern web application for managing text snippets with automatic summarization.
+> Short description of what your Rails app does.
 
-## Prerequisites
+## 🚀 Tech Stack
 
-- Node.js 20.x
-- Docker
-- Docker Compose
+- Nodejs `20.9.0`
+- React `19.2.0`
+- Next `16.0.1`
+- Tailwindcss
+- Jest
+- Typescript
+---
 
-## Development Setup
+## 📂 Project Setup
 
-1. Install dependencies:
+### 📥 Requirements
+
+- Nodejs `20.9.0`
+- React `19.2.0`
+- Next `16.0.1`
+- Tailwindcss
+- Jest
+- Typescript
+
+### ⚙️ Installation
+Info: You need rails and db running to use the nextjs
+
+```bash
+docker compose build nextjs rails db
+docker compose up
+```
+
+## Run test
+
+``` bash 
+docker compose exec rails nextjs yarn test
+```
+
+
