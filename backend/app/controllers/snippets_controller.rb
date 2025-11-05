@@ -3,9 +3,11 @@ class SnippetsController < ApplicationController
 
   def index
     @snippets = Snippet.all
+    render json: @snippets, status: :ok
   end
 
   def show
+    render json: @snippet, status: :ok
   end
 
   def create

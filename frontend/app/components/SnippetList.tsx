@@ -4,47 +4,26 @@ type Snippet = {
   id: string;
   text: string;
   summary: string;
-  completed: boolean;
 };
 
-type TodoListProps = {
-  snippets: Snippet[];
-  onToggleSnippet: (id: string) => void;
-};
 
-const baseClickableClass = "cursor-pointer";
+const EMPTY_MESSAGE = "Nenhum snippet encontrado";
 
-function clickableTextClass(completed: boolean): string {
-  return `${baseClickableClass} ${completed ? "line-through text-gray-500" : ""}`;
-}
+export default function SnippetList({snippets, onToggleSnippet}: SnippetListProps) {
+    if (snippets.length === 0) return <p>{EMPTY_MESSAGE}</p>;
 
-export default function TodoList({ snippets, onToggleSnippet }: TodoListProps) {
-  const handleToggle =
-    (id: string) =>
-    () => {
-      onToggleSnippet(id);
-    };
-
-  return (
-    <ul>
-      {snippets.map(({ id, text, summary, completed }) => (
-        <li key={id} className="flex items-center justify-between p-2 border-b">
-          <button
-            type="button"
-            className={clickableTextClass(completed)}
-            onClick={handleToggle(id)}
-          >
-            {text}
-          </button>
-          <button
-            type="button"
-            className={clickableTextClass(completed)}
-            onClick={handleToggle(id)}
-          >
-            {summary}
-          </button>
-        </li>
-      ))}
-    </ul>
-  );
+    return (
+        <ul>
+            {snippets.map((snippet) => (
+                <li
+                    key={snippet.id}
+                    className="flex items-center justify-between p-2 border-b"
+                    onClick={onToggleSnippet ? handleToggle(snippet.id) : undefined}
+                >
+                    <span className="text-sm text-muted-foreground">Summary: {snippet.summary}</span>
+                    <span className="text-sm text-muted-foreground">Text: {snippet.text}</span>
+                </li>
+            ))}
+        </ul>
+    );
 }
