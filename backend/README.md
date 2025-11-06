@@ -1,6 +1,6 @@
 # 📦 Project Name
 
-> Short description of what your Rails app does.
+> Pluga Challenge FullStack.
 
 ## 🚀 Tech Stack
 
@@ -28,6 +28,7 @@
 docker compose build rails db
 docker compose up
 ```
+
 ## 🛢 DB Setup
 
 ``` bash

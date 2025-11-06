@@ -1,77 +1,98 @@
-# Pluga Challenge FullStack
+# Teste Plug
 
-Nós da [Pluga](https://pluga.co) nos orgulhamos muito do nosso time e sempre queremos
-boas pessoas para acrescentar com a gente, por isso preparamos esse desafio de avaliação.
+🚀 Para rodar a aplicação
 
-## Contexto
+Cada parte do projeto (backend e frontend) possui seu próprio README com instruções detalhadas de instalação e execução.
+Consulte os arquivos dentro das pastas `backend/` (Rails) e `frontend/` (Next.js) para saber como configurar e iniciar cada ambiente corretamente.
 
-Equipes de conteúdo frequentemente precisam de uma forma rápida de colar textos brutos
-(rascunhos de blogs, transcrições etc.) e obter resumos curtos, gerados por IA,
-que possam ser reutilizados em outros lugares.
+## Snippets API — Exemplos com curl
+ 📝 Criar um snippet
 
-Você deverá implementar um serviço que forneça essa funcionalidade.
+Endpoint:
+POST /snippets
 
-## Sua Tarefa
+Descrição:
+Recebe { "text": "conteúdo bruto..." }, armazena no banco e gera um resumo via IA (OpenAI ou Gemini).
+Exemplo de requisição:
+```bash
+curl -X POST http://localhost:3000/snippets \
+-H "Content-Type: application/json" \
+-d '{
+"text": "As queimadas em São Paulo aumentaram nos últimos meses, afetando a qualidade do ar e a saúde pública."
+}'
+```
+Resposta esperada:
+``` json
+{
+"id": 1,
+"text": "As queimadas em São Paulo aumentaram nos últimos meses, afetando a qualidade do ar e a saúde pública.",
+"summary": "Aumento das queimadas em São Paulo prejudica o ar e a saúde da população."
+}
+```
 
-Crie uma aplicação composta por:
+📖 Ler um snippet
+Endpoint:
+GET /snippets/:id
 
-1. API em [Ruby on Rails](https://rubyonrails.org) (backend), com os seguintes endpoints:
+Exemplo de requisição:
+```bash
+curl -X GET http://localhost:3000/snippets/1
+```
+Resposta esperada:
+```json
+{
+"id": 1,
+"text": "As queimadas em São Paulo aumentaram nos últimos meses, afetando a qualidade do ar e a saúde pública.",
+"summary": "Aumento das queimadas em São Paulo prejudica o ar e a saúde da população."
+}
 
-| Ação   | Endpoint            | Descrição                                                                                                                                                            |
-| ------ | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Criar  | `POST /snippets`    | Recebe `{ "text": "conteúdo bruto..." }`, armazena no banco e retorna `{ id, text, summary }`. O `summary` deve ser gerado por um provedor de IA (OpenAI ou Gemini). |
-| Ler    | `GET /snippets/:id` | Retorna `{ id, text, summary }`.                                                                                                                                                   |
-| Listar | `GET /snippets`     | Retorna a lista de snippets `[{ id, text, summary }]`.
+```
 
-2. Interface em [Next.js](https://nextjs.org) (frontend), onde o usuário pode colar texto, salvar e visualizar os resumos já criados.
+📜 Listar snippets
+Endpoint:
+GET /snippets
 
-## Stack
+Exemplo de requisição:
+```bash
+curl -X GET http://localhost:3000/snippets
+```
+Resposta esperada:
+```json
+[
+{
+"id": 1,
+"text": "As queimadas em São Paulo aumentaram nos últimos meses...",
+"summary": "Aumento das queimadas em São Paulo prejudica o ar e a saúde."
+},
+{
+"id": 2,
+"text": "A mineração de dados pode ajudar a prever áreas de risco de incêndio.",
+"summary": "Mineração de dados auxilia na prevenção de incêndios."
+}
+]
 
-* **Backend:** Ruby 3+, Rails 8+ (API-only), RSpec para testes e Rubocop para lint.
-* **Frontend:** Next.js 14+, TypeScript, Jest/Testing Library para testes e ESlint para lint.
-* **Banco de dados:** PostgreSQL.
-* **IA:** Chamada a um provedor de IA (OpenAI ou Gemini). O token deve vir de uma variável de ambiente.
-* **Docker:**
-    * Deve existir um `Dockerfile` para backend e outro para frontend + `docker-compose.yml` do projeto.
-    * `docker compose up` deve iniciar a API (porta **3000**) e o frontend (porta **4000**).
-* **Git:**
-    * Suba em um repositório público (GitHub).
-    * Histórico de commits deve mostrar progresso incremental e ciclos de TDD (não apenas um commit final).
-    * Pipeline de CI (GitHub Actions) com lint e testes.
+```
 
-## Entregáveis
+# Instruções claras para obter e configurar a chave de API do provedor de IA.
 
-1. **Repositório público** com:
-    * `README.md` (instruções de setup local & Docker, como rodar testes, exemplos de requisições via `curl` ou Postman).
-    * Código-fonte com a seguinte estrutura:
+Para usar a OpenAI, você precisa gerar uma chave de API no  [ site daOpenAI ](https://platform.openai.com/account/api-keys)
+.
+```bash
+OPENAI_ACCESS_TOKEN=your_api_key_here
+```
+Certifique-se de que essa variável esteja definida no seu arquivo .env.local ou no ambiente de implantação antes de executar a aplicação.
 
-      ```
-      /backend               # API Rails
-      /frontend              # Interface Next.js
-      /docker-compose.yml    # Configurações de container
-      ```
+# 🧠 Reflexão Pós-Desafio
 
-2. **Instruções claras** para obter e configurar a chave de API do provedor de IA.
-3. **Reflexão pós-desafio** (até ½ página no README):
+- Tratamento de exceções: criaria mais casos de exceção, especialmente na classe OpenAi::ChatService, para tornar o fluxo mais resiliente e previsível.
+- Ambiente de testes: utilizaria uma chave paga da OpenAI para realizar testes mais completos e realistas, explorando cenários de uso mais avançados.
 
-    * O que você melhoraria com mais tempo.
-    * Quais trade-offs tomou.
+- Cobertura de testes: ampliaria os testes automatizados tanto no backend (RSpec) quanto no frontend (Jest/Testing Library), buscando atingir 100% de cobertura.
 
-## Avaliação
+- Integração entre sistemas: aperfeiçoaria a integração entre Ruby on Rails e Next.js, otimizando a comunicação via API e reduzindo latências.
 
-Serão considerados:
+- Documentação: refinaria a documentação técnica, incluindo exemplos práticos de uso, setup detalhado e instruções de implantação.
 
-* **Qualidade e arquitetura do código:** Rails idiomático, Next.js bem estruturado, código modular e testável.
-* **TDD:** Testes escritos junto com o código, não depois.
-* **Design da API:** RESTful, mensagens de erro úteis, tratamento de 4xx/5xx.
-* **Segurança e variáveis de ambiente:** chaves em `.env`, nunca no repo.
-* **Containerização:** Imagem leve, reprodutível, fácil de rodar.
-* **Comunicação:** README claro, commits descritivos, histórico consistente.
+- UX/UI e arquitetura: faria melhorias na experiência do usuário e refatoraria partes do código para aumentar a modularidade, legibilidade e facilidade de manutenção.
 
-## Considerações
-
-Caso aceite o desafio e submeta seu projeto, vamos avaliar seu código com muita
-atenção para retornar com a nossa visão de quais são os pontos positivos e os
-pontos a melhorar.
-
-Muito obrigado e bom coding. :)
+# Em

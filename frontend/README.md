@@ -1,6 +1,6 @@
 # 📦 Project Name
 
-> Short description of what your Rails app does.
+> Pluga Challenge FullStack .
 
 ## 🚀 Tech Stack
 
