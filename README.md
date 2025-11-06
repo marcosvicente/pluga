@@ -6,7 +6,7 @@ Cada parte do projeto (backend e frontend) possui seu próprio README com instru
 Consulte os arquivos dentro das pastas `backend/` (Rails) e `frontend/` (Next.js) para saber como configurar e iniciar cada ambiente corretamente.
 
 ## Snippets API — Exemplos com curl
- 📝 Criar um snippet
+### 📝 Criar um snippet
 
 Endpoint:
 POST /snippets
@@ -30,7 +30,8 @@ Resposta esperada:
 }
 ```
 
-📖 Ler um snippet
+### 📖 Ler um snippet
+
 Endpoint:
 GET /snippets/:id
 
@@ -48,7 +49,8 @@ Resposta esperada:
 
 ```
 
-📜 Listar snippets
+### 📜 Listar snippets
+
 Endpoint:
 GET /snippets
 
@@ -95,4 +97,3 @@ Certifique-se de que essa variável esteja definida no seu arquivo .env.local ou
 
 - UX/UI e arquitetura: faria melhorias na experiência do usuário e refatoraria partes do código para aumentar a modularidade, legibilidade e facilidade de manutenção.
 
-# Em
